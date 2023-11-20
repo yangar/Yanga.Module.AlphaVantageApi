@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34310.174
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yanga.Module.AlphaVantageApi", "Yanga.Module.AlphaVantageApi\Yanga.Module.AlphaVantageApi.csproj", "{070034F4-B74C-4FF2-B067-F011B63D4CB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yanga.Module.AlphaVantageApi.Tests", "Yanga.Module.AlphaVantageApi.Tests\Yanga.Module.AlphaVantageApi.Tests.csproj", "{1D5019A8-2936-45EE-AC71-BCC165078C4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yanga.Module.AlphaVantageApi.Console", "Yanga.Module.AlphaVantageApi.Console\Yanga.Module.AlphaVantageApi.Console.csproj", "{387D7FB0-7D46-451D-B239-C70FC971A8FA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{070034F4-B74C-4FF2-B067-F011B63D4CB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{070034F4-B74C-4FF2-B067-F011B63D4CB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{070034F4-B74C-4FF2-B067-F011B63D4CB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{070034F4-B74C-4FF2-B067-F011B63D4CB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D5019A8-2936-45EE-AC71-BCC165078C4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D5019A8-2936-45EE-AC71-BCC165078C4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D5019A8-2936-45EE-AC71-BCC165078C4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D5019A8-2936-45EE-AC71-BCC165078C4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{387D7FB0-7D46-451D-B239-C70FC971A8FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{387D7FB0-7D46-451D-B239-C70FC971A8FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{387D7FB0-7D46-451D-B239-C70FC971A8FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{387D7FB0-7D46-451D-B239-C70FC971A8FA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1E65D706-8035-4AB8-9DA3-E204E8EF53E4}
+	EndGlobalSection
+EndGlobal
