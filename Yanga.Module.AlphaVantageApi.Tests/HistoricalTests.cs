@@ -1,4 +1,4 @@
-namespace TestProject1Yanga.Module.AlphaVantageApi.Tests
+namespace Yanga.Module.AlphaVantageApi.Tests
 {
     public class HistoricalTests
     {
@@ -8,10 +8,10 @@ namespace TestProject1Yanga.Module.AlphaVantageApi.Tests
         public async Task InvalidSymbolTest()
         {
             string apiKey = "ALPHAVANTAGE-API-KEY";
-            AlphaVantage apiWrapper = new AlphaVantage(apiKey);
+            AlphaVantage apiWrapper = new(apiKey);
 
             var exception = await Assert.ThrowsAsync<Exception>(async () =>
-                await new AlphaVantage(apiKey).GetHistoricalAsync("invalidSymbol", "EUR"));
+                await new AlphaVantage(apiKey).GetForexHistoricalAsync("invalidSymbol", "EUR", "full"));
 
             //Write(exception.ToString());
 

@@ -5,18 +5,18 @@ using System.Text.Json;
 public class ForexData
 {
     public DateTime Date { get; set; }
-    public double Open { get; set; }
-    public double Close { get; set; }
-    public double High { get; set; }
-    public double Low { get; set; }
-    public double Volume { get; set; }
+    public decimal Open { get; set; }
+    public decimal Close { get; set; }
+    public decimal High { get; set; }
+    public decimal Low { get; set; }
+    public decimal Volume { get; set; }
 }
 
 public static class Historic
 {
     public static List<ForexData> AlphaVantageToCandle(string jsonData)
     {
-        List<ForexData> result = new List<ForexData>();
+        List<ForexData> result = new();
 
         // Parse the JSON data
         JsonDocument document = JsonDocument.Parse(jsonData);
@@ -39,10 +39,10 @@ public static class Historic
                 ForexData forexData = new ForexData
                 {
                     Date = date,
-                    Open = Convert.ToDouble(values.GetProperty("1. open").GetString()),
-                    Close = Convert.ToDouble(values.GetProperty("4. close").GetString()),
-                    High = Convert.ToDouble(values.GetProperty("2. high").GetString()),
-                    Low = Convert.ToDouble(values.GetProperty("3. low").GetString()),
+                    Open = Convert.ToDecimal(values.GetProperty("1. open").GetString()),
+                    Close = Convert.ToDecimal(values.GetProperty("4. close").GetString()),
+                    High = Convert.ToDecimal(values.GetProperty("2. high").GetString()),
+                    Low = Convert.ToDecimal(values.GetProperty("3. low").GetString()),
                     Volume = 0 // You can set the volume to a default value or retrieve it if available
                 };
 

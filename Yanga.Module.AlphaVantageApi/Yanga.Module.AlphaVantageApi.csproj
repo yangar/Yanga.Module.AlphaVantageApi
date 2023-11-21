@@ -1,9 +1,34 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	  <Authors>Yann G.</Authors>
+	  <Company>yangalimited</Company>
+	  <Product>Yanga.Module.AlphavantageApi</Product>
+	  <Description>.NET wrapper for the Alpha Vantage API, providing an easy way to retrieve historical Forex</Description>
+	  <PackageTags>Alphavantage;Forex;Stock;Quote;Eod;</PackageTags>
+	  <Copyright>2023</Copyright>
+	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
+	  <AssemblyVersion>1.0.1.0</AssemblyVersion>
+	  <FileVersion>1.0.1.0</FileVersion>
+	  <Version>1.0.1.0</Version>
+	  <PackageId>Yanga.Module.AlphavantageApi</PackageId>
+	  <PackageIcon>header-logo.png</PackageIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+	  <None Include="header-logo.png">
+		  <Pack>True</Pack>
+		  <PackagePath></PackagePath>
+	  </None>
+  </ItemGroup>
 
 </Project>
