@@ -9,10 +9,10 @@ public class ForexData
     public decimal Close { get; set; }
     public decimal High { get; set; }
     public decimal Low { get; set; }
-    public decimal Volume { get; set; }
+    public long? Volume { get; set; }
 }
 
-public static class Historic
+public static class AlphaVantageHistoric
 {
     public static List<ForexData> AlphaVantageToCandle(string jsonData)
     {
@@ -28,9 +28,6 @@ public static class Historic
 
         if (!metaData.Equals(JsonValueKind.Undefined) && !timeSeries.Equals(JsonValueKind.Undefined))
         {
-            string fromSymbol = metaData.GetProperty("2. From Symbol").GetString();
-            string toSymbol = metaData.GetProperty("3. To Symbol").GetString();
-
             foreach (var entry in timeSeries.EnumerateObject())
             {
                 DateTime date = DateTime.Parse(entry.Name);

@@ -8,23 +8,33 @@ namespace Yanga.Module.AlphaVantageApi
         private readonly HttpClient httpClient;
 
         public AlphaVantage(string apiKey)
+            : this(apiKey, new HttpClient())
+        {
+        }
+
+        public AlphaVantage(string apiKey, HttpClient httpClient)
         {
             this.apiKey = apiKey;
-            httpClient = new HttpClient();
+            this.httpClient = httpClient;
         }
 
         public async Task<List<ForexData>> GetForexHistoricalAsync(string fromSymbol, string toSymbol, string outputSize, string dataType = "json")
         {
             var data = await GetDataAsync(fromSymbol, toSymbol, outputSize ?? OutputSize.Compact, dataType);
+            if (string.IsNullOrWhiteSpace(data))
+            {
+                throw new Exception("API Error: No data returned from Alpha Vantage.");
+            }
+
             JsonDocument document = JsonDocument.Parse(data);
             JsonElement root = document.RootElement;
             if (root.TryGetProperty("Error Message", out JsonElement error))
             {
                 throw new Exception($"API Error: {error.GetString()}");
             }
-            return Historic.AlphaVantageToCandle(data);
+            return AlphaVantageHistoric.AlphaVantageToCandle(data);
         }
-        private async Task<string> GetDataAsync(string fromSymbol, string toSymbol, string outputSize = "compact", string dataType = "json")
+        private async Task<string?> GetDataAsync(string fromSymbol, string toSymbol, string outputSize = "compact", string dataType = "json")
         {
             string apiUrl = $"https://www.alphavantage.co/query?function=FX_DAILY&from_symbol={fromSymbol}&to_symbol={toSymbol}&outputsize={outputSize}&datatype={dataType}&apikey={apiKey}";
 

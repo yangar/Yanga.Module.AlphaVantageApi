@@ -1,37 +1,142 @@
 # Yanga.Module.AlphaVantageApi
 
-This is a .NET wrapper for the Alpha Vantage API, providing an easy way to retrieve historical Forex data in a convenient format. The wrapper includes a method to get historical daily Forex prices and converts the response to a more user-friendly format, based on .NET 6
+`Yanga.Module.AlphaVantageApi` is a small .NET wrapper around the Alpha Vantage API for retrieving daily Forex historical data and mapping it into simple candle objects.
+
+The package currently targets **.NET 10**.
 
 ## Features
-* Get quotes (to do)
-* Get historical data
 
-## v1.0 initial release
-* Retreive historic
+- Retrieve daily Forex historical prices from Alpha Vantage.
+- Convert Alpha Vantage JSON responses into `ForexData` candles.
+- Support Alpha Vantage `compact` and `full` output sizes.
+- Injectable `HttpClient` support for testing or custom HTTP configuration.
 
-## Supported Platforms
-* .NET Core 6.0+
+## Installation
 
-## How To Install
-You can find the package through Nuget
+Install from NuGet:
 
-    PM> Install-Package Yanga.Module.AlphaVantageApi
+```powershell
+Install-Package Yanga.Module.AlphaVantageApi
+```
 
-## How To Use
+Or with the .NET CLI:
 
-### Add reference
+```powershell
+dotnet add package Yanga.Module.AlphaVantageApi
+```
 
-    using Yanga.Module.AlphaVantageApi;
+## Requirements
 
-### Get stock quotes
-    To do
+- .NET 10 SDK/runtime
+- An Alpha Vantage API key
 
-### Get historical data for a stock
-    // You should be able to query data from various markets including US, HK, TW
-    // The startTime & endTime here defaults to EST timezone
-    var history = await new AlphaVantage("AlphaVantage-Api-Key").GetHistoricalAsync("EUR", "THB", OutputSize.Compact);
+You can request an API key from Alpha Vantage:
 
-    foreach (var candle in history)
-    {
-        Console.WriteLine($"DateTime: {candle.DateTime}, Open: {candle.Open}, High: {candle.High}, Low: {candle.Low}, Close: {candle.Close}, Volume: {candle.Volume}");
-    }
+https://www.alphavantage.co/support/#api-key
+
+## Quick Start
+
+```csharp
+using Yanga.Module.AlphaVantageApi;
+
+var alphaVantage = new AlphaVantage("YOUR_ALPHA_VANTAGE_API_KEY");
+
+var candles = await alphaVantage.GetForexHistoricalAsync(
+    fromSymbol: "EUR",
+    toSymbol: "USD",
+    outputSize: OutputSize.Compact);
+
+foreach (var candle in candles)
+{
+    Console.WriteLine(
+        $"Date: {candle.Date:yyyy-MM-dd}, " +
+        $"Open: {candle.Open}, " +
+        $"High: {candle.High}, " +
+        $"Low: {candle.Low}, " +
+        $"Close: {candle.Close}, " +
+        $"Volume: {candle.Volume}");
+}
+```
+
+## Output Size
+
+Alpha Vantage supports two output sizes for this endpoint:
+
+```csharp
+OutputSize.Compact // "compact"
+OutputSize.Full    // "full"
+```
+
+`compact` returns the latest subset of daily data. `full` requests the full available daily history from Alpha Vantage.
+
+## Data Model
+
+`GetForexHistoricalAsync` returns a `List<ForexData>`.
+
+```csharp
+public class ForexData
+{
+    public DateTime Date { get; set; }
+    public decimal Open { get; set; }
+    public decimal Close { get; set; }
+    public decimal High { get; set; }
+    public decimal Low { get; set; }
+    public long? Volume { get; set; }
+}
+```
+
+Forex responses from Alpha Vantage do not include volume, so `Volume` is currently set to `0`.
+
+## Error Handling
+
+If Alpha Vantage returns an API error response, the wrapper throws an exception with the API message:
+
+```csharp
+try
+{
+    var candles = await alphaVantage.GetForexHistoricalAsync("INVALID", "USD", OutputSize.Compact);
+}
+catch (Exception ex)
+{
+    Console.WriteLine(ex.Message);
+}
+```
+
+If no data is returned from the HTTP request, the wrapper throws:
+
+```text
+API Error: No data returned from Alpha Vantage.
+```
+
+## Custom HttpClient
+
+You can provide an `HttpClient` when you need custom handlers, logging, timeouts, proxies, or deterministic tests:
+
+```csharp
+using var httpClient = new HttpClient
+{
+    Timeout = TimeSpan.FromSeconds(30)
+};
+
+var alphaVantage = new AlphaVantage("YOUR_ALPHA_VANTAGE_API_KEY", httpClient);
+```
+
+## Development
+
+Restore and build the solution:
+
+```powershell
+dotnet build Yanga.Module.AlphaVantageApi.sln
+```
+
+Run the test suite:
+
+```powershell
+dotnet test Yanga.Module.AlphaVantageApi.sln
+```
+
+The tests include deterministic JSON parsing checks and wrapper-level HTTP tests using a fake `HttpClient`.
+
+## License
+
+This project is licensed under the MIT License.
